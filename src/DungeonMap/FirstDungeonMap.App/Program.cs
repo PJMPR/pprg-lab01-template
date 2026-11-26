@@ -43,27 +43,90 @@ public static class Program
 
         // TODO: wyświetl mapę wierszami za pomocą dwóch pętli.
         Console.WriteLine($"Mapa ma {map.GetLength(0)} wiersze i {map.GetLength(1)} kolumn.");
+    
+        for (int y = 0; y < map.GetLength(0); y++)
+        {
+            for (int x = 0; x < map.GetLength(1); x++)
+            {
+                Console.Write(map[y, x]);
+            }
+            Console.WriteLine();
+        }
     }
+
+    
 
     private static void Task2()
     {
-        char[,] map = new char[7, 12];
-        // TODO: wypełnij krawędzie '#', a wnętrze '.'.
-        MapRenderer.Print(map);
+
+    const int width = 12;
+    const int height = 7;
+    char[,] map = new char[height, width];
+    
+
+for (int y = 0; y < map.GetLength(0); y++)
+    {
+        for (int x = 0; x < map.GetLength(1); x++)
+        {
+            if (y == 0 || y == height - 1 || x == 0 || x == width - 1)
+            {
+                map[y, x] = '#';
+            }
+            else
+            {
+                map[y, x] = '.';
+            }
+        }
+
+    }
+    for (int y = 0; y < map.GetLength(0); y++)
+    {
+        for (int x = 0; x < map.GetLength(1); x++)
+        {
+            Console.Write(map[y, x]);
+        }
+        Console.WriteLine();
+    }
     }
 
     private static void Task3()
     {
         char[,] map = DungeonMap.Create(12, 7);
+
+        map[1, 10] = '>';
+
+        map[4, 8] = '$';
+
+        map[2, 3] = '#';
+        map[3, 3] = '#';
+        map[4, 3] = '#';
         // TODO: dodaj wyjście, skarb i przeszkody.
-        MapRenderer.Print(map);
+    MapRenderer.Print(map);
+    Console.WriteLine("Legenda: # ściana | . podłoga | > wyjście | $ skarb");
     }
 
     private static void Task4()
     {
-        char[,] map = DungeonMap.CreateSample();
+        char[,] map = DungeonMap.Create(12, 7);
+        map[1, 10] = '>';
+        map[4, 8] = '$';
+        map[2, 3] = '#';
+        map[3, 3] = '#';
+        map[4, 3] = '#';
         // TODO: wyświetl '@' jako nakładkę, nie zapisując go do mapy.
         MapRenderer.Print(map, PlayerX, PlayerY);
+        int playerX = 2;
+        int playerY = 2;
+        Console.WriteLine("=== Gracz na podłodze (2, 2) ===");
+        MapRenderer.Print(map, playerX, playerY);
+        Console.WriteLine($"Wartość w tablicy map[{playerY}, {playerX}]: '{map[playerY, playerX]}' (oczekiwano '.')");
+        Console.WriteLine();
+
+        playerX = 10;
+        playerY = 1;
+        Console.WriteLine("=== Gracz na wyjściu (10, 1) ===");
+        MapRenderer.Print(map, playerX, playerY);
+        Console.WriteLine($"Wartość w tablicy map[{playerY}, {playerX}]: '{map[playerY, playerX]}' (oczekiwano '>')");
     }
 
     private static void Task5()
@@ -71,20 +134,61 @@ public static class Program
         char[,] map = DungeonMap.CreateSample();
         int[,] coordinates = { { 2, 2 }, { 0, 0 }, { 20, 3 }, { 10, 5 } };
 
-        for (int i = 0; i < coordinates.GetLength(0); i++)
+    (int x, int y, string desc)[] testCases =
         {
-            int x = coordinates[i, 0];
-            int y = coordinates[i, 1];
-            Console.WriteLine($"({x}, {y}) -> wewnątrz: {DungeonMap.IsInside(map, x, y)}, dostępne: {DungeonMap.IsWalkable(map, x, y)}");
-        }
+            (2, 2, "podłoga"),
+            (0, 0, "ściana (narożnik)"),
+            (-1, 2, "ujemne x"),
+            (2, -1, "ujemne y"),
+            (12, 3, "x równe szerokości"),
+            (3, 7, "y równe wysokości"),
+            (10, 1, "wyjście")
+        };
+    foreach (var (x, y, desc) in testCases)
+    {
+        bool inside = DungeonMap.IsInside(map, x, y);
+        bool walkable = DungeonMap.IsWalkable(map, x, y);
+        Console.WriteLine($"({x,2}, {y,2}) [{desc,-18}] -> IsInside: {inside,-5} | IsWalkable: {walkable,-5}");
+    }
     }
 
     private static void Task6()
     {
-        char[,] map = DungeonMap.CreateSample();
-        MapRenderer.Print(map, PlayerX, PlayerY);
-        Console.WriteLine("TODO: uzupełnij raport mapy.");
+        char[,] map = DungeonMap.Create(12, 7);
+        map[1, 10] = '>'; // Wyjście (10, 1)
+        map[4, 8] = '$';  // Skarb (8, 4)
+        map[2, 3] = '#';
+    map[3, 3] = '#';
+    map[4, 3] = '#';
+
+    int width = map.GetLength(1);
+    int height = map.GetLength(0);
+
+    int walls = DungeonMap.CountSymbol(map, '#');
+    int floors = DungeonMap.CountSymbol(map, '.');
+    int treasures = DungeonMap.CountSymbol(map, '$');
+    int exits = DungeonMap.CountSymbol(map, '>');
+
+    Console.WriteLine($"Rozmiar: {width}x{height}");
+    Console.WriteLine($"Ściany: {walls}");
+    Console.WriteLine($"Podłoga: {floors}");
+    Console.WriteLine($"Skarby: {treasures}");
+
+    if (DungeonMap.TryFindSymbol(map, '>', out int exitX, out int exitY))
+    {
+        Console.WriteLine($"Wyjście: x={exitX}, y={exitY}");
     }
+    else
+    {
+        Console.WriteLine("Wyjście: brak");
+    }
+
+    Console.WriteLine($"Suma liczników: {walls + floors + treasures + exits} (map.Length: {map.Length})");
+
+    // Test wyszukiwania nieistniejącego symbolu '!'
+    bool foundMissing = DungeonMap.TryFindSymbol(map, '!', out int missX, out int missY);
+    Console.WriteLine($"Test brakującego '!': znaleziono={foundMissing}, x={missX}, y={missY}");
+}
 
     private static void Task7()
     {
