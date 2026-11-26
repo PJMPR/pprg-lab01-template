@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "FirstDungeonMap.App/1.0.0": {
+        "dependencies": {
+          "FirstDungeonMap.Core": "1.0.0"
+        },
+        "runtime": {
+          "FirstDungeonMap.App.dll": {}
+        }
+      },
+      "FirstDungeonMap.Core/1.0.0": {
+        "runtime": {
+          "FirstDungeonMap.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FirstDungeonMap.App/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FirstDungeonMap.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

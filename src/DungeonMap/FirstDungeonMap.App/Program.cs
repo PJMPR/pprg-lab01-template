@@ -41,29 +41,56 @@ public static class Program
             { '#', '#', '#', '#', '#' }
         };
 
-        // TODO: wyświetl mapę wierszami za pomocą dwóch pętli.
+        for (int y = 0; y < map.GetLength(0); y++)
+        {
+            for (int x = 0; x < map.GetLength(1); x++)
+            {
+                Console.Write(map[y, x]);
+            }
+            Console.WriteLine();
+        }
+
+
         Console.WriteLine($"Mapa ma {map.GetLength(0)} wiersze i {map.GetLength(1)} kolumn.");
     }
 
     private static void Task2()
     {
         char[,] map = new char[7, 12];
-        // TODO: wypełnij krawędzie '#', a wnętrze '.'.
+        for (int y = 0; y < map.GetLength(0); y++)
+        {
+            for (int x = 0; x < map.GetLength(1); x++)
+            {
+                bool isBorder = y == 0 || y == map.GetLength(0) - 1 || x == 0 || x == map.GetLength(1) - 1;
+                map[y, x] = isBorder ? '#' : '.';
+            }
+        }
+
         MapRenderer.Print(map);
     }
 
     private static void Task3()
     {
         char[,] map = DungeonMap.Create(12, 7);
-        // TODO: dodaj wyjście, skarb i przeszkody.
+
+        map[1, 10] = '>';
+        map[4, 8] = '$';
+        map[2, 4] = '#';
+        map[3, 4] = '#';
+        map[4, 4] = '#';
         MapRenderer.Print(map);
+        MapRenderer.PrintLegend();
     }
 
     private static void Task4()
     {
         char[,] map = DungeonMap.CreateSample();
-        // TODO: wyświetl '@' jako nakładkę, nie zapisując go do mapy.
+        // TODO: wyświetl '@' jako nakładkę, nie zapisując go do mapy.     
         MapRenderer.Print(map, PlayerX, PlayerY);
+        Console.WriteLine($"Znajdujesz sie na polu {PlayerX}, {PlayerY}");
+
+        MapRenderer.Print(map, 10, 1);
+        Console.WriteLine($"Wartosc tablicy na wyjsciu z mapy: '{map[1, 10]}'");
     }
 
     private static void Task5()
@@ -75,7 +102,7 @@ public static class Program
         {
             int x = coordinates[i, 0];
             int y = coordinates[i, 1];
-            Console.WriteLine($"({x}, {y}) -> wewnątrz: {DungeonMap.IsInside(map, x, y)}, dostępne: {DungeonMap.IsWalkable(map, x, y)}");
+            Console.WriteLine($"{x}, {y} -> {DungeonMap.IsInside(map, x, y)}, dostępne: {DungeonMap.IsWalkable(map, x, y)}");
         }
     }
 
@@ -83,7 +110,28 @@ public static class Program
     {
         char[,] map = DungeonMap.CreateSample();
         MapRenderer.Print(map, PlayerX, PlayerY);
-        Console.WriteLine("TODO: uzupełnij raport mapy.");
+        int wall = DungeonMap.CountSymbol(map, '#');
+        int floor = DungeonMap.CountSymbol(map, '.');
+        int exit = DungeonMap.CountSymbol(map, '>');
+        int treasure = DungeonMap.CountSymbol(map, '$');
+        int totalstructures = wall + floor + exit + treasure;
+
+        Console.WriteLine($"Rozmiar mapy: {map.GetLength(1)} x {map.GetLength(0)} = {map.Length}");
+        Console.WriteLine($"Sciany: {wall}");
+        Console.WriteLine($"Podloga: {floor}");
+        Console.WriteLine($"Skarb: {treasure}");
+
+
+        if (DungeonMap.TryFindSymbol(map, '>', out int exitX, out int exitY))
+        {
+            Console.WriteLine($"Wyjscie: {exit} na polu {exitX}, {exitY}");
+        }
+        else
+        {
+            Console.WriteLine($"Wyjscie: {exit} nie znaleziono");
+
+            bool isExitMissing = DungeonMap.TryFindSymbol(map, '!', out int missingX, out int missingY);
+        }
     }
 
     private static void Task7()
