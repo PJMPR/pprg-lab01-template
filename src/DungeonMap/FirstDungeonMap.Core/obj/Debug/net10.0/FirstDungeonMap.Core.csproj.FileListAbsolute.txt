@@ -1,0 +1,12 @@
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/bin/Debug/net10.0/FirstDungeonMap.Core.deps.json
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/bin/Debug/net10.0/FirstDungeonMap.Core.dll
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/bin/Debug/net10.0/FirstDungeonMap.Core.pdb
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/FirstDungeonMap.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/FirstDungeonMap.Core.AssemblyInfoInputs.cache
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/FirstDungeonMap.Core.AssemblyInfo.cs
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/FirstDungeonMap.Core.csproj.CoreCompileInputs.cache
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/FirstDungeonMap.Core.sourcelink.json
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/FirstDungeonMap.Core.dll
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/refint/FirstDungeonMap.Core.dll
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/FirstDungeonMap.Core.pdb
+/Users/bizzy/Documents/vsc/firstmap/pprg-lab01-template/src/DungeonMap/FirstDungeonMap.Core/obj/Debug/net10.0/ref/FirstDungeonMap.Core.dll
